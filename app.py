@@ -1,3 +1,7 @@
+from asyncio import Event
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QKeyEvent
 from PyQt6.QtWidgets import QMainWindow
 
 from forms.main_window import Ui_MainWindow
@@ -11,3 +15,10 @@ class App(QMainWindow, Ui_MainWindow):
         self._controller = MapController()
         self._controller.set_view(self.map_canvas)
         self._controller.update()
+
+    def keyPressEvent(self, event: QKeyEvent):
+        match event.key():
+            case Qt.Key.Key_PageUp:
+                self._controller.scale_up()
+            case Qt.Key.Key_PageDown:
+                self._controller.scale_down()

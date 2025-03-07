@@ -7,6 +7,7 @@ from .model import MapModel, InitialMapModel
 
 class MapController:
     _api = MapApi()
+    SCALE_COEFFICIENT = 2.0
 
     def __init__(self):
         self._model: MapModel = InitialMapModel()
@@ -24,3 +25,13 @@ class MapController:
         pixmap = QPixmap()
         pixmap.loadFromData(data)
         self._view.setPixmap(pixmap)
+
+    def _change_scale(self, change: float) -> float:
+        self._model.scale(change)
+        self.update()
+
+    def scale_up(self) -> None:
+        self._change_scale(self.SCALE_COEFFICIENT)
+
+    def scale_down(self) -> None:
+        self._change_scale(1 / self.SCALE_COEFFICIENT)

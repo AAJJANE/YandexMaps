@@ -19,6 +19,15 @@ class MapModel:
         return self._spn, self._spn
 
 
+    def scale(self, value: float) -> None:
+        new_spn = self._spn * value
+        if new_spn < 0.000125:    # Минимальный масштаб
+            return
+        if new_spn > 35:          # Максимальный масштаб
+            return
+        self._spn = new_spn
+
+
 @dataclass
 class InitialMapModel(MapModel):
     _latitude: float = 48.713945
