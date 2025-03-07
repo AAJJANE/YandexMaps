@@ -1,7 +1,9 @@
+import asyncio
 import sys
 
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from qasync import QEventLoop
 
 from app import App
 
@@ -18,6 +20,9 @@ if __name__ == '__main__':
 
     sys.excepthook = except_hook
     app = QApplication(sys.argv)
-    ex = App()
-    ex.show()
-    app.exec()
+    loop = QEventLoop(app)
+    asyncio.set_event_loop(loop)
+    window  = App()
+    window .show()
+    with loop:
+        loop.run_forever()

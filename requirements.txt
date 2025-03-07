@@ -1,3 +1,5 @@
 PyQt6~=6.8.1
 pyqt6-tools~=6.4.2.3.3
 requests~=2.32.3
+aiohttp~=3.11.13
+qasync~=0.27.1

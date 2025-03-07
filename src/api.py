@@ -1,6 +1,4 @@
-import logging
-
-import requests
+import aiohttp
 
 from config import STATIC_MAPS_API
 
@@ -12,6 +10,17 @@ TSize = tuple[int, int] | None
 
 class MapApi:
     URL = 'https://static-maps.yandex.ru/v1?'
+
+    def __init__(self):
+        self.session: aiohttp.ClientSession | None = None
+
+    async def __aenter__(self):
+        self.session = aiohttp.ClientSession()
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        if self.session:
+            await self.session.close()
 
     @staticmethod
     def params(model: MapModel, size: TSize) -> dict:
@@ -30,10 +39,10 @@ class MapApi:
             )
         return result
 
-    def __call__(self,
-                 model: MapModel,
-                 size: TSize = None
-            ) -> bytes:
-        response = requests.get(self.URL, params=self.params(model, size))
-        print(response.url)
-        return response.content
+    async def __call__(self, model: MapModel, size: TSize = None) -> bytes:
+        try:
+            async with self.session.get(self.URL, params=self.params(model, size)) as response:
+                print(response.url)
+                return await response.read()
+        except Exception:
+            return
