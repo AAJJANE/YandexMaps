@@ -35,3 +35,19 @@ class MapController:
 
     def scale_down(self) -> None:
         self._change_scale(1 / self.SCALE_COEFFICIENT)
+
+    def left(self) -> None:
+        self._model.longitude -= self._model.spn[0]
+        self.update()
+
+    def right(self) -> None:
+        self._model.longitude += self._model.spn[0]
+        self.update()
+
+    def up(self) -> None:
+        self._model.latitude += self._model.spn[1]
+        self.update()
+
+    def down(self) -> None:
+        self._model.latitude -= self._model.spn[1]
+        self.update()

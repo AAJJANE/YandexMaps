@@ -22,3 +22,11 @@ class App(QMainWindow, Ui_MainWindow):
                 self._controller.scale_up()
             case Qt.Key.Key_PageDown:
                 self._controller.scale_down()
+            case Qt.Key.Key_Left:
+                self._controller.left()
+            case Qt.Key.Key_Right:
+                self._controller.right()
+            case Qt.Key.Key_Up:
+                self._controller.up()
+            case Qt.Key.Key_Down:
+                self._controller.down()
