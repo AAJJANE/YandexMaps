@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1122</width>
+    <height>779</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QLabel" name="map_canvas">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>40</y>
-      <width>591</width>
-      <height>441</height>
+      <x>30</x>
+      <y>20</y>
+      <width>1011</width>
+      <height>671</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -29,6 +29,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -36,7 +39,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1122</width>
      <height>29</height>
     </rect>
    </property>
