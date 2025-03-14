@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import ClassVar
 
-
 @dataclass
 class MapModel:
     _latitude: float
     _longitude: float
     _spn: float
+    darkTheme: bool = False
 
     _MAX_LATITUDE: ClassVar[int] = 85
 

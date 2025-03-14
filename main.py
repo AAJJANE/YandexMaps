@@ -2,7 +2,7 @@ import asyncio
 import sys
 
 from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication
 from qasync import QEventLoop
 
 from app import App

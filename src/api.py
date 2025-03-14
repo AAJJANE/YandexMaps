@@ -28,6 +28,7 @@ class MapApi:
             'apikey': STATIC_MAPS_API,
             'll': '{},{}'.format(model.longitude, model.latitude),
             'spn': '{},{}'.format(*model.spn),
+            'theme': 'dark' if model.darkTheme else 'light',
         }
         if size:
             scale_width = 1 if size[0] < 650 else size[0] / 650

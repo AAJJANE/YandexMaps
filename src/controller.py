@@ -84,3 +84,7 @@ class MapController:
     @update_decorator
     async def down(self) -> None:
         self._model.latitude -= self._model.spn[1]
+
+    @update_decorator
+    async def set_theme(self, is_dark_theme: bool) -> None:
+        self._model.darkTheme = is_dark_theme
