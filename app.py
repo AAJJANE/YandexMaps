@@ -20,8 +20,8 @@ class App(QMainWindow, Ui_MainWindow):
         self._controller.set_status_bar(self.statusbar)
         self.checkDarkTheme.stateChanged.connect(self.changeTheme)
         self.async_init()
-        # if getostheme.isDarkMode():
-        #     self.checkDarkTheme.setChecked(True)
+        if getostheme.isDarkMode():
+            self.checkDarkTheme.setChecked(True)
 
     @asyncSlot()
     async def changeTheme(self):

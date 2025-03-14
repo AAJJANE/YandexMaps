@@ -17,6 +17,7 @@ class MapController:
 
     def __init__(self):
         self._model: MapModel = InitialMapModel()
+        self._model.save_point()
         self._view: QLabel | None = None
         self._status_bar: QStatusBar | None = None
 

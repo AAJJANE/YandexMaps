@@ -1,6 +1,7 @@
-import aiohttp
+from typing import override
 
 from config import STATIC_MAPS_API
+from .absApi import AbstractApi
 
 from .model import MapModel
 
@@ -8,21 +9,12 @@ from .model import MapModel
 TSize = tuple[int, int] | None
 
 
-class MapApi:
+class MapApi(AbstractApi):
     URL = 'https://static-maps.yandex.ru/v1?'
 
-    def __init__(self):
-        self.session: aiohttp.ClientSession | None = None
-
-    async def __aenter__(self):
-        self.session = aiohttp.ClientSession()
-        return self
-
-    async def __aexit__(self, exc_type, exc, tb):
-        if self.session:
-            await self.session.close()
 
     @staticmethod
+    @override
     def params(model: MapModel, size: TSize) -> dict:
         result = {
             'apikey': STATIC_MAPS_API,
@@ -30,6 +22,9 @@ class MapApi:
             'spn': '{},{}'.format(*model.spn),
             'theme': 'dark' if model.darkTheme else 'light',
         }
+        if model.point:
+            coords = '{},{}'.format(*model.point)
+            result['pt'] = coords + ',comma'
         if size:
             scale_width = 1 if size[0] < 650 else size[0] / 650
             scale_height = 1 if size[1] < 450 else size[1] / 450
@@ -40,10 +35,3 @@ class MapApi:
             )
         return result
 
-    async def __call__(self, model: MapModel, size: TSize = None) -> bytes:
-        try:
-            async with self.session.get(self.URL, params=self.params(model, size)) as response:
-                print(response.url)
-                return await response.read()
-        except Exception:
-            return

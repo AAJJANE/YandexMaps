@@ -7,8 +7,19 @@ class MapModel:
     _longitude: float
     _spn: float
     darkTheme: bool = False
+    _point: tuple[float, float] | None = None
 
     _MAX_LATITUDE: ClassVar[int] = 85
+
+    @property
+    def point(self) -> tuple[float, float] | None:
+        return self._point
+
+    def remove_point(self) -> None:
+        self._point = None
+
+    def save_point(self) -> None:
+        self._point = self._longitude, self._latitude
 
     @property
     def latitude(self) -> float:
