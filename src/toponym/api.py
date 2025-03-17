@@ -2,8 +2,8 @@ from typing import override
 from json import loads
 
 from config import GEOCODER_API
-from .absApi import AbstractApi
-from .toponym import Toponym
+from src.absApi import AbstractApi
+from src.toponym.model import Toponym
 
 
 class ToponymApi(AbstractApi):
@@ -21,6 +21,8 @@ class ToponymApi(AbstractApi):
         return result
 
     async def makeToponym(self, query: str) -> Toponym | None:
+        if not query:
+            return None
         data = await self(query)
         if data is None:
             return None

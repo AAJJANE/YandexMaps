@@ -7,11 +7,11 @@ class Toponym:
 
     @cached_property
     def latitude(self) -> float:
-        return float(self._data["Point"]["pos"].split()[0])
+        return float(self._data["Point"]["pos"].split()[1])
 
     @cached_property
     def longitude(self) -> float:
-        return float(self._data["Point"]["pos"].split()[1])
+        return float(self._data["Point"]["pos"].split()[0])
 
     @cached_property
     def address(self) -> str:
@@ -20,3 +20,6 @@ class Toponym:
     @cached_property
     def postal_code(self) -> str:
         return self._data["metaDataProperty"]["GeocoderMetaData"]["Address"].get("postal_code", "")
+
+    def __str__(self) -> str:
+        return self.address

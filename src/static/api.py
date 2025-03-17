@@ -1,9 +1,9 @@
 from typing import override
 
 from config import STATIC_MAPS_API
-from .absApi import AbstractApi
+from src.absApi import AbstractApi
 
-from .model import MapModel
+from src.static.model import MapModel
 
 
 TSize = tuple[int, int] | None

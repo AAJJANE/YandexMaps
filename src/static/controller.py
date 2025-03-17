@@ -1,14 +1,13 @@
 import asyncio
 from asyncio import Task
 from functools import wraps
-from time import sleep
 from typing import Callable
 
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel, QStatusBar
 
-from .api import MapApi
-from .model import MapModel, InitialMapModel
+from src.static.api import MapApi
+from src.static.model import MapModel, InitialMapModel
 
 
 class MapController:
@@ -17,7 +16,6 @@ class MapController:
 
     def __init__(self):
         self._model: MapModel = InitialMapModel()
-        self._model.save_point()
         self._view: QLabel | None = None
         self._status_bar: QStatusBar | None = None
 
@@ -27,7 +25,7 @@ class MapController:
     def set_status_bar(self, status_bar: QStatusBar) -> None:
         self._status_bar = status_bar
 
-    def  _post_update(self, future: Task[bytes]) -> None:
+    def _post_update(self, future: Task[bytes]) -> None:
         data = future.result()
         if not data:
             return
@@ -89,3 +87,13 @@ class MapController:
     @update_decorator
     async def set_theme(self, is_dark_theme: bool) -> None:
         self._model.darkTheme = is_dark_theme
+
+    @update_decorator
+    async def set_location(self, latitude: float, longitude: float) -> None:
+        self._model.latitude = latitude
+        self._model.longitude = longitude
+        self._model.save_point()
+
+    @update_decorator
+    async def remove_point(self) -> None:
+        self._model.remove_point()
