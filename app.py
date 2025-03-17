@@ -26,6 +26,8 @@ class App(QMainWindow, Ui_MainWindow):
         self.checkDarkTheme.stateChanged.connect(self.changeTheme)
         self.btnAddress.clicked.connect(self.handle_toponym_search)
         self.inputAddress.returnPressed.connect(self.handle_toponym_search)
+        self.btnClear.clicked.connect(self.handle_toponym_clear)
+        self.isPostalCode.stateChanged.connect(self.show_postal_code)
         self.async_init()
         if getostheme.isDarkMode():
             self.checkDarkTheme.setChecked(True)
@@ -61,3 +63,11 @@ class App(QMainWindow, Ui_MainWindow):
     @asyncSlot()
     async def handle_toponym_search(self):
         await self._toponym_controller.update_toponym(self.inputAddress.text())
+        self.show_postal_code()
+
+    @asyncSlot()
+    async def handle_toponym_clear(self):
+        await self._toponym_controller.update_toponym('')
+
+    def show_postal_code(self):
+        self._toponym_controller.update_postal_code(self.isPostalCode.isChecked())

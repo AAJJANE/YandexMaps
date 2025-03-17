@@ -58,3 +58,8 @@ class ToponymController:
     @update_decorator
     async def update_toponym(self, query: str) -> None:
         self._query = query.strip()
+    
+    def update_postal_code(self, is_show: bool) -> None:
+        if self._model:
+            self._model.set_show_postal_code(is_show)
+            self._output_view.setText(str(self._model))
