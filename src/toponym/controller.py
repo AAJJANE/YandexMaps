@@ -15,12 +15,9 @@ class ToponymController:
 
     def __init__(self):
         self._model: Toponym | None = None
-        self._input_view: QLineEdit | None = None
         self._output_view: QLineEdit | None = None
         self._static_controller: MapController | None = None
-
-    def set_input_view(self, view: QLineEdit) -> None:
-        self._input_view = view
+        self._query = ''
 
     def set_output_view(self, view: QLineEdit) -> None:
         self._output_view = view
@@ -36,12 +33,11 @@ class ToponymController:
             self._output_view.setText(str(self._model))
 
     async def update(self) -> None:
-        if self._input_view is None or self._output_view is None:
+        if self._output_view is None:
             return
 
         async with self._api as api:
-            query = self._input_view.text().strip()
-            task = asyncio.create_task(api.makeToponym(query))
+            task = asyncio.create_task(api.makeToponym(self._query))
             task.add_done_callback(self._post_update)
             await task
             if self._static_controller is not None:
@@ -60,5 +56,5 @@ class ToponymController:
         return wrapper
 
     @update_decorator
-    async def update_toponym(self) -> None:
-        pass
+    async def update_toponym(self, query: str) -> None:
+        self._query = query.strip()

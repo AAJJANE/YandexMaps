@@ -20,7 +20,6 @@ class App(QMainWindow, Ui_MainWindow):
         self._static_controller.set_status_bar(self.statusbar)
 
         self._toponym_controller = ToponymController()
-        self._toponym_controller.set_input_view(self.inputAddress)
         self._toponym_controller.set_output_view(self.textFullAddress)
         self._toponym_controller.set_static_controller(self._static_controller)
 
@@ -61,4 +60,4 @@ class App(QMainWindow, Ui_MainWindow):
 
     @asyncSlot()
     async def handle_toponym_search(self):
-        await self._toponym_controller.update_toponym()
+        await self._toponym_controller.update_toponym(self.inputAddress.text())
